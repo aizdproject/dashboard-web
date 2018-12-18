@@ -100,7 +100,7 @@ export default class AirChart extends Component
                             data: temperature,
                         },
                         {
-                            label: 'VWC',
+                            label: 'Humidity',
                             backgroundColor: hexToRgba(brandDanger, 10),
                             borderColor: brandDanger,
                             pointHoverBackgroundColor: '#fff',
@@ -108,7 +108,7 @@ export default class AirChart extends Component
                             data: humidity,
                         },
                         {
-                            label: 'EC',
+                            label: 'Gas Quality',
                             backgroundColor: hexToRgba(brandSuccess, 10),
                             borderColor: brandSuccess,
                             pointHoverBackgroundColor: '#fff',
