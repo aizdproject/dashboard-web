@@ -43,7 +43,7 @@ export default class AirChart extends Component
                       ticks: {
                         beginAtZero: true,
                         maxTicksLimit: 5,
-                        stepSize: Math.ceil(500 / 50),
+                        stepSize: Math.ceil(500 / 10),
                         max: 500,
                       },
                     }],
