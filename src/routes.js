@@ -187,7 +187,10 @@ const NodeSensorForm = Loadable({
   loading: Loading,
 });
 
-
+const Alpha = Loadable({
+  loader: () => import('./views/Alpha/Dashboard'),
+  loading: Loading,
+});
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -233,6 +236,7 @@ const routes = [
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/forms/node', exact: true, name: 'Form Node Sensor', component: NodeSensorForm },
+  { path: '/alpha', exact: true, name: 'Alpha', component: Alpha },
 ];
 
 export default routes;

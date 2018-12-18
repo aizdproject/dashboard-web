@@ -9,6 +9,15 @@ export default {
         text: 'NEW',
       },
     },
+    {
+      name: 'Alpha',
+      url: '/alpha',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'warning',
+        text: 'MANUAL'
+      }
+    },
     // {
     //   title: true,
     //   name: 'Theme',

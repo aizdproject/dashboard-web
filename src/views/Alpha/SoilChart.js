@@ -4,10 +4,13 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
 
+const brandPrimary = getStyle('--primary')
+const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
+const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
 
-export default class PotNodeChart extends Component
+export default class SoilChart extends Component
 {
     constructor(props) {
         super(props);
@@ -60,39 +63,43 @@ export default class PotNodeChart extends Component
     }
 
     async componentDidMount() {
-        await axios.get('https://aizd.herokuapp.com/api/v1/pot-nodes')
+        await axios.get('http://localhost:5000/api/v1/alpha')
         .then(res => {
-            const pot_node = res.data[0];
-            let temperatures = [];
-            let moistures = [];
+            const alpha = res.data[0];
+            let temperature = [];
+            let vwc = [];
+            let ec = [];
+            let salinity = [];
+            let tds = [];
+            let epsilon = [];
             let created_at = [];
 
-            if(pot_node) {
-                pot_node.soil_temperatures.forEach(element => {
-                    let temperature = 0;
-                    temperature += element.temperature1;
-                    temperature += element.temperature2;
-                    temperature += element.temperature3;
-                    temperature += element.temperature4;
-    
-                    temperature /= 4;
-                
-                    temperatures.push(temperature)
+            if(alpha) {
+                alpha.soil_temperature.forEach(element => {
+                    temperature.push(element)
+                });
+
+                alpha.soil_vwc.forEach(element => {
+                    vwc.push(element)
+                });
+
+                alpha.soil_ec.forEach(element => {
+                    ec.push(element)
+                });
+
+                alpha.soil_salinity.forEach(element => {
+                    salinity.push(element)
+                });
+
+                alpha.soil_tds.forEach(element => {
+                    tds.push(element)
+                });
+
+                alpha.soil_epsilon.forEach(element => {
+                    epsilon.push(element)
                 });
     
-                pot_node.soil_moistures.forEach(element => {
-                    let moisture = 0;
-                    moisture += element.moisture1;
-                    moisture += element.moisture2;
-                    moisture += element.moisture3;
-                    moisture += element.moisture4;
-    
-                    moisture /= 4;
-                
-                    moistures.push(moisture)
-                });
-    
-                pot_node.created_at.forEach(element => {
+                alpha.created_at.forEach(element => {
                     created_at.push(element)
                 });
             }
@@ -107,15 +114,47 @@ export default class PotNodeChart extends Component
                             borderColor: brandInfo,
                             pointHoverBackgroundColor: '#fff',
                             borderWidth: 2,
-                            data: temperatures,
+                            data: temperature,
                         },
                         {
-                            label: 'Moisture',
+                            label: 'VWC',
                             backgroundColor: hexToRgba(brandDanger, 10),
                             borderColor: brandDanger,
                             pointHoverBackgroundColor: '#fff',
                             borderWidth: 2,
-                            data: moistures,
+                            data: vwc,
+                        },
+                        {
+                            label: 'EC',
+                            backgroundColor: hexToRgba(brandWarning, 10),
+                            borderColor: brandWarning,
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: ec,
+                        },
+                        {
+                            label: 'Salinity',
+                            backgroundColor: hexToRgba(brandSuccess, 10),
+                            borderColor: brandSuccess,
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: salinity,
+                        },
+                        {
+                            label: 'TDS',
+                            backgroundColor: hexToRgba(brandPrimary, 10),
+                            borderColor: brandPrimary,
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: tds,
+                        },
+                        {
+                            label: 'Epsilon',
+                            backgroundColor: hexToRgba('#42EEF4', 10),
+                            borderColor: '#42EEF4',
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: epsilon,
                         }
                     ]
                 }

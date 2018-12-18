@@ -4,10 +4,11 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
 
+const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandDanger = getStyle('--danger')
 
-export default class PotNodeChart extends Component
+export default class AirChart extends Component
 {
     constructor(props) {
         super(props);
@@ -60,39 +61,28 @@ export default class PotNodeChart extends Component
     }
 
     async componentDidMount() {
-        await axios.get('https://aizd.herokuapp.com/api/v1/pot-nodes')
+        await axios.get('http://localhost:5000/api/v1/alpha')
         .then(res => {
-            const pot_node = res.data[0];
-            let temperatures = [];
-            let moistures = [];
+            const alpha = res.data[0];
+            let temperature = [];
+            let humidity = [];
+            let gas_quality = [];
             let created_at = [];
 
-            if(pot_node) {
-                pot_node.soil_temperatures.forEach(element => {
-                    let temperature = 0;
-                    temperature += element.temperature1;
-                    temperature += element.temperature2;
-                    temperature += element.temperature3;
-                    temperature += element.temperature4;
-    
-                    temperature /= 4;
-                
-                    temperatures.push(temperature)
+            if(alpha) {
+                alpha.air_temperature.forEach(element => {
+                    temperature.push(element)
+                });
+
+                alpha.air_humidity.forEach(element => {
+                    humidity.push(element)
+                });
+
+                alpha.air_gas_quality.forEach(element => {
+                    gas_quality.push(element)
                 });
     
-                pot_node.soil_moistures.forEach(element => {
-                    let moisture = 0;
-                    moisture += element.moisture1;
-                    moisture += element.moisture2;
-                    moisture += element.moisture3;
-                    moisture += element.moisture4;
-    
-                    moisture /= 4;
-                
-                    moistures.push(moisture)
-                });
-    
-                pot_node.created_at.forEach(element => {
+                alpha.created_at.forEach(element => {
                     created_at.push(element)
                 });
             }
@@ -107,15 +97,23 @@ export default class PotNodeChart extends Component
                             borderColor: brandInfo,
                             pointHoverBackgroundColor: '#fff',
                             borderWidth: 2,
-                            data: temperatures,
+                            data: temperature,
                         },
                         {
-                            label: 'Moisture',
+                            label: 'VWC',
                             backgroundColor: hexToRgba(brandDanger, 10),
                             borderColor: brandDanger,
                             pointHoverBackgroundColor: '#fff',
                             borderWidth: 2,
-                            data: moistures,
+                            data: humidity,
+                        },
+                        {
+                            label: 'EC',
+                            backgroundColor: hexToRgba(brandSuccess, 10),
+                            borderColor: brandSuccess,
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: gas_quality,
                         }
                     ]
                 }
