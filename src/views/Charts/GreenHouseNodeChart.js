@@ -63,7 +63,7 @@ export default class GreenHouseNodeChart extends Component
     }
 
     async componentDidMount() {
-        await axios.get('https://aizd.herokuapp.com/api/v1/greenhouse-nodes')
+        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/greenhouse-nodes')
         .then(res => {
             const greenhouse_node = res.data[0];
             let humidities = [];

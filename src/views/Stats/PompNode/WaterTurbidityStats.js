@@ -55,7 +55,7 @@ export default class PotNodeChart extends Component
     }
 
     async componentDidMount() {
-        await axios.get('https://aizd.herokuapp.com/api/v1/pomp-nodes')
+        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/pomp-nodes')
         .then(res => {
             const pomp_node = res.data[0];
             let turbidities = [];
@@ -86,7 +86,7 @@ export default class PotNodeChart extends Component
             })
         });
 
-        await axios.get('https://aizd.herokuapp.com/api/v1/node-statistics/water-turbidity')
+        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/node-statistics/water-turbidity')
         .then(res => {
             let turbidity = res.data.water_turbidity;
             let value = 0;

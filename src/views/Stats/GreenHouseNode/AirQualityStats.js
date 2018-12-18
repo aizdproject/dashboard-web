@@ -55,7 +55,7 @@ export default class PotNodeChart extends Component
     }
 
     async componentDidMount() {
-        await axios.get('https://aizd.herokuapp.com/api/v1/greenhouse-nodes')
+        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/greenhouse-nodes')
         .then(res => {
             const greenhouse_node = res.data[0];
             let air_qualities = [];
@@ -95,7 +95,7 @@ export default class PotNodeChart extends Component
             })
         });
 
-        await axios.get('https://aizd.herokuapp.com/api/v1/node-statistics/air-quality')
+        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/node-statistics/air-quality')
         .then(res => {
             let air_qualities = res.data;
             let value = 0;

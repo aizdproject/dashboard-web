@@ -61,7 +61,7 @@ export default class AirChart extends Component
     }
 
     async componentDidMount() {
-        await axios.get('http://localhost:5000/api/v1/alpha')
+        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
         .then(res => {
             const alpha = res.data[0];
             let temperature = [];

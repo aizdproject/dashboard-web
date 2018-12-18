@@ -63,7 +63,7 @@ export default class PompNodeChart extends Component
     }
 
     async componentDidMount() {
-        await axios.get('https://aizd.herokuapp.com/api/v1/pomp-nodes')
+        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/pomp-nodes')
         .then(res => {
             const pomp_node = res.data[0];
             let water_turbidity = [];
