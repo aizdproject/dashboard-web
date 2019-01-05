@@ -7,6 +7,7 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import axios from 'axios';
 import Pusher from 'pusher-js';
+import CountUp from 'react-countup';
 
 const pusher = new Pusher('b01fb79d33e790f8c38d', {
     cluster: 'ap1',
@@ -136,7 +137,7 @@ export default class PotNodeChart extends Component
         return(
             <Card className="text-white bg-success">
               <CardBody className="pb-0">
-                <div className="text-value">{ this.state.Value } mg/L</div>
+                <div className="text-value"><CountUp end={this.state.Value} duration={9} /> mg/L</div>
                 <div>Soil Salinity</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
