@@ -137,7 +137,7 @@ export default class PotNodeChart extends Component
         return(
             <Card className="text-white bg-warning">
               <CardBody className="pb-0">
-                <div className="text-value"><CountUp end={this.state.Value} duration={9} /> &micro;s/cm</div>
+                <div className="text-value"><CountUp end={this.state.Value} duration={9} decimals={2} /> &micro;s/cm</div>
                 <div>Soil Electrical Conductivity</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
