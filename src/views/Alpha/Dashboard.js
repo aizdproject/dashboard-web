@@ -29,7 +29,7 @@ import SoilTemperatureStats from '../Stats/Alpha/Soil/SoilTemperature';
 import AirTemperatureStats from '../Stats/Alpha/Air/AirTemperature';
 import AirGasQualityStats from '../Stats/Alpha/Air/AirGasQuality';
 import AirHumidityStats from '../Stats/Alpha/Air/AirHumidity';
-import SoilChart from '../Alpha/SoilChart';
+import Soil from '../Alpha/Soil';
 import Air from '../Alpha/Air';
 
 class Dashboard extends Component {
@@ -115,7 +115,8 @@ class Dashboard extends Component {
                   <div className="text-value">Soil Chart</div>
                 </Col>
                 </Row>
-                <SoilChart/>
+                <br/>
+                <Soil/>
               </CardBody>
             </Card>
           </Col>

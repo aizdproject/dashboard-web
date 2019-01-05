@@ -18,6 +18,7 @@ const channel = pusher.subscribe('alpha');
 
 export default class AirChart extends Component
 {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -68,6 +69,7 @@ export default class AirChart extends Component
     }
 
     async componentDidMount() {
+        this._isMounted = true;
         await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
         .then(res => {
             const alpha = res.data[0];
@@ -142,37 +144,39 @@ export default class AirChart extends Component
     
             }
 
-            this.setState({
-                Data : {
-                    labels: created_at,
-                    datasets: [
-                        {
-                            label: 'Temperature',
-                            backgroundColor: hexToRgba(brandInfo, 10),
-                            borderColor: brandInfo,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth: 2,
-                            data: temperature,
-                        },
-                        {
-                            label: 'Humidity',
-                            backgroundColor: hexToRgba(brandDanger, 10),
-                            borderColor: brandDanger,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth: 2,
-                            data: humidity,
-                        },
-                        {
-                            label: 'Gas Quality',
-                            backgroundColor: hexToRgba(brandSuccess, 10),
-                            borderColor: brandSuccess,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth: 2,
-                            data: gas_quality,
-                        }
-                    ]
-                }
-            })
+            if(this._isMounted) {
+                this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Temperature',
+                                backgroundColor: hexToRgba(brandInfo, 10),
+                                borderColor: brandInfo,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth: 2,
+                                data: temperature,
+                            },
+                            {
+                                label: 'Humidity',
+                                backgroundColor: hexToRgba(brandDanger, 10),
+                                borderColor: brandDanger,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth: 2,
+                                data: humidity,
+                            },
+                            {
+                                label: 'Gas Quality',
+                                backgroundColor: hexToRgba(brandSuccess, 10),
+                                borderColor: brandSuccess,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth: 2,
+                                data: gas_quality,
+                            }
+                        ]
+                    }
+                })
+            }
         })
 
         await channel.bind('update-alpha', data => {
@@ -246,40 +250,47 @@ export default class AirChart extends Component
                     gas_quality.push(temp_gas_quality/count);
                 });
             }
-    
-            this.setState({
-                Data : {
-                    labels: created_at,
-                    datasets: [
-                        {
-                            label: 'Temperature',
-                            backgroundColor: hexToRgba(brandInfo, 10),
-                            borderColor: brandInfo,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth: 2,
-                            data: temperature,
-                        },
-                        {
-                            label: 'Humidity',
-                            backgroundColor: hexToRgba(brandDanger, 10),
-                            borderColor: brandDanger,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth: 2,
-                            data: humidity,
-                        },
-                        {
-                            label: 'Gas Quality',
-                            backgroundColor: hexToRgba(brandSuccess, 10),
-                            borderColor: brandSuccess,
-                            pointHoverBackgroundColor: '#fff',
-                            borderWidth: 2,
-                            data: gas_quality,
-                        }
-                    ]
-                }
-            })
+            
+            if(this._isMounted) {
+                this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Temperature',
+                                backgroundColor: hexToRgba(brandInfo, 10),
+                                borderColor: brandInfo,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth: 2,
+                                data: temperature,
+                            },
+                            {
+                                label: 'Humidity',
+                                backgroundColor: hexToRgba(brandDanger, 10),
+                                borderColor: brandDanger,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth: 2,
+                                data: humidity,
+                            },
+                            {
+                                label: 'Gas Quality',
+                                backgroundColor: hexToRgba(brandSuccess, 10),
+                                borderColor: brandSuccess,
+                                pointHoverBackgroundColor: '#fff',
+                                borderWidth: 2,
+                                data: gas_quality,
+                            }
+                        ]
+                    }
+                })
+            }
         })
     }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    
     
     render() {
         return(

@@ -5,15 +5,8 @@ import {
     CardBody,
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
 import Pusher from 'pusher-js';
-
-const brandPrimary = getStyle('--primary')
-const brandSuccess = getStyle('--success')
-const brandInfo = getStyle('--info')
-const brandWarning = getStyle('--warning')
-const brandDanger = getStyle('--danger')
 
 const pusher = new Pusher('b01fb79d33e790f8c38d', {
     cluster: 'ap1',
@@ -23,6 +16,8 @@ const channel = pusher.subscribe('alpha');
 
 export default class PotNodeChart extends Component
 {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -62,6 +57,7 @@ export default class PotNodeChart extends Component
     }
 
     async componentDidMount() {
+        this._isMounted = true;
         await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
         .then(res => {
             const alpha_node = res.data[0];
@@ -78,20 +74,22 @@ export default class PotNodeChart extends Component
                     created_at.push(element)
                 });
 
-                this.setState({
-                    Data : {
-                        labels: created_at,
-                        datasets: [
-                            {
-                                label: 'Soil EC',
-                                backgroundColor: 'rgba(255,255,255,.2)',
-                                borderColor: 'rgba(255,255,255,.55)',
-                                data: ecs,
-                            },
-                        ]
-                    },
-                    Value: last_ec
-                })
+                if(this._isMounted) {
+                    this.setState({
+                        Data : {
+                            labels: created_at,
+                            datasets: [
+                                {
+                                    label: 'Soil EC',
+                                    backgroundColor: 'rgba(255,255,255,.2)',
+                                    borderColor: 'rgba(255,255,255,.55)',
+                                    data: ecs,
+                                },
+                            ]
+                        },
+                        Value: last_ec
+                    })
+                }
             }
         });
 
@@ -110,22 +108,28 @@ export default class PotNodeChart extends Component
                     created_at.push(element)
                 });
 
-                this.setState({
-                    Data : {
-                        labels: created_at,
-                        datasets: [
-                            {
-                                label: 'Soil EC',
-                                backgroundColor: 'rgba(255,255,255,.2)',
-                                borderColor: 'rgba(255,255,255,.55)',
-                                data: ecs,
-                            },
-                        ]
-                    },
-                    Value: last_ec
-                })
+                if(this._isMounted) {
+                    this.setState({
+                        Data : {
+                            labels: created_at,
+                            datasets: [
+                                {
+                                    label: 'Soil EC',
+                                    backgroundColor: 'rgba(255,255,255,.2)',
+                                    borderColor: 'rgba(255,255,255,.55)',
+                                    data: ecs,
+                                },
+                            ]
+                        },
+                        Value: last_ec
+                    })
+                }
             }
         });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     
     render() {

@@ -62,7 +62,8 @@ class Dashboard extends Component {
 
     return (
       <div className="animated fadeIn">
-        <Row>
+        <h1>UNDER CONSTRUCTION ):</h1>
+        {/* <Row>
           <Col xs="12" sm="12" lg="12">
             <div className="text-value">Pots Node Statistics</div>
           </Col>
@@ -163,7 +164,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-        
+         */}
       </div>
     );
   }
