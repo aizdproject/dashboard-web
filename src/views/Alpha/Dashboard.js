@@ -20,15 +20,12 @@ import {
   //Table,
 } from 'reactstrap';
 
-import SoilTemperatureStats from '../Stats/PotNode/SoilTemperatureStats';
-import SoilMoistureStats from '../Stats/PotNode/SoilMoistureStats';
-import EnvironmentHumidityStats from '../Stats/GreenHouseNode/EnvironmentHumidityStats';
-import EnvironmentTemperatureStats from '../Stats/GreenHouseNode/EnvironmentTemperatureStats';
-import AirQualityStats from '../Stats/GreenHouseNode/AirQualityStats';
-import LightIntensityStats from '../Stats/GreenHouseNode/LightIntensityStats';
-import WaterTurbidityStats from '../Stats/PompNode/WaterTurbidityStats';
-import WaterPhStats from '../Stats/PompNode/WaterPhStats';
-import WaterFlowStats from '../Stats/PompNode/WaterFlowStats';
+import SoilECStats from '../Stats/Alpha/Soil/SoilEC';
+import SoilEpsilonStats from '../Stats/Alpha/Soil/SoilEpsilon';
+import SoilSalinityStats from '../Stats/Alpha/Soil/SoilSalinity';
+import SoilTDSStats from '../Stats/Alpha/Soil/SoilTDS';
+import SoilVWCStats from '../Stats/Alpha/Soil/SoilVWC';
+import SoilTemperatureStats from '../Stats/Alpha/Soil/SoilTemperature';
 import SoilChart from '../Alpha/SoilChart';
 import AirChart from '../Alpha/AirChart';
 
@@ -63,58 +60,29 @@ class Dashboard extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" sm="12" lg="12">
-            <div className="text-value">Pots Node Statistics</div>
+            <div className="text-value">Soil Node Statistics</div>
           </Col>
         </Row>
         <Row>
-          <Col xs="12" sm="6" lg="6">
+          <Col xs="12" sm="4" lg="4">
+            <SoilECStats/>
+          </Col>
+          <Col xs="12" sm="4" lg="4">
+            <SoilEpsilonStats/>
+          </Col>
+          <Col xs="12" sm="4" lg="4">
+            <SoilSalinityStats/>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="12" sm="4" lg="4">
+            <SoilTDSStats/>
+          </Col>
+          <Col xs="12" sm="4" lg="4">
+            <SoilVWCStats/>
+          </Col>
+          <Col xs="12" sm="4" lg="4">
             <SoilTemperatureStats/>
-          </Col>
-
-          <Col xs="12" sm="6" lg="6">
-            <SoilMoistureStats/>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col xs="12" sm="12" lg="12">
-            <div className="text-value">Green House Node Statistics</div>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="12" sm="6" lg="3">
-            <EnvironmentHumidityStats/>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <EnvironmentTemperatureStats/>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <LightIntensityStats/>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <AirQualityStats/>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col xs="12" sm="12" lg="12">
-            <div className="text-value">Pomp Node Statistics</div>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="12" sm="6" lg="4">
-            <WaterTurbidityStats/>
-          </Col>
-
-          <Col xs="12" sm="6" lg="4">
-            <WaterPhStats/>
-          </Col>
-
-          <Col xs="12" sm="6" lg="4">
-            <WaterFlowStats/>
           </Col>
         </Row>
 
