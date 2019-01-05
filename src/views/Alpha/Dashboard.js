@@ -26,6 +26,9 @@ import SoilSalinityStats from '../Stats/Alpha/Soil/SoilSalinity';
 import SoilTDSStats from '../Stats/Alpha/Soil/SoilTDS';
 import SoilVWCStats from '../Stats/Alpha/Soil/SoilVWC';
 import SoilTemperatureStats from '../Stats/Alpha/Soil/SoilTemperature';
+import AirTemperatureStats from '../Stats/Alpha/Air/AirTemperature';
+import AirGasQualityStats from '../Stats/Alpha/Air/AirGasQuality';
+import AirHumidityStats from '../Stats/Alpha/Air/AirHumidity';
 import SoilChart from '../Alpha/SoilChart';
 import AirChart from '../Alpha/AirChart';
 
@@ -83,6 +86,23 @@ class Dashboard extends Component {
           </Col>
           <Col xs="12" sm="4" lg="4">
             <SoilTemperatureStats/>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs="12" sm="12" lg="12">
+            <div className="text-value">Air Node Statistics</div>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="12" sm="4" lg="4">
+            <AirTemperatureStats/>
+          </Col>
+          <Col xs="12" sm="4" lg="4">
+            <AirGasQualityStats/>
+          </Col>
+          <Col xs="12" sm="4" lg="4">
+            <AirHumidityStats/>
           </Col>
         </Row>
 
