@@ -30,7 +30,7 @@ import AirTemperatureStats from '../Stats/Alpha/Air/AirTemperature';
 import AirGasQualityStats from '../Stats/Alpha/Air/AirGasQuality';
 import AirHumidityStats from '../Stats/Alpha/Air/AirHumidity';
 import SoilChart from '../Alpha/SoilChart';
-import AirChart from '../Alpha/AirChart';
+import Air from '../Alpha/Air';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -107,7 +107,7 @@ class Dashboard extends Component {
         </Row>
 
         <Row>
-          <Col>
+          <Col xs="12" sm="12" lg="12">
             <Card>
               <CardBody>
                 <Row>
@@ -122,15 +122,16 @@ class Dashboard extends Component {
         </Row>
 
         <Row>
-          <Col>
+          <Col xs="12" sm="12" lg="12">
             <Card>
               <CardBody>
                 <Row>
-                <Col xs="12" sm="12" lg="12">
+                <Col xs="6" sm="6" lg="6">
                   <div className="text-value">Air Chart</div>
                 </Col>
                 </Row>
-                <AirChart/>
+                <br/>
+                <Air/>
               </CardBody>
             </Card>
           </Col>

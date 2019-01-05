@@ -4,7 +4,7 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
 import Pusher from 'pusher-js';
-// import moment from 'moment';
+import moment from 'moment';
 
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
@@ -77,22 +77,69 @@ export default class AirChart extends Component
             let created_at = [];
 
             if(alpha) {
-                // console.log(moment('16/03/1998', 'DD/MM/YYYY-H:mm:ss').year());
-                alpha.air_temperature.forEach(element => {
-                    temperature.push(element)
+                let week = 0;
+                let count = 0;
+                let temp_temperature = 0;
+                let temp_humidity = 0;
+                let temp_gas_quality = 0;
+
+                week = 0;
+                count = 0;
+                alpha.air_temperature.forEach((element, index) => {
+                    let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let year = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').weekYear();
+
+                    if(now !== week) {
+                        week = now;
+                        count = 0;
+                        temp_temperature = 0;
+                    } 
+                    temp_temperature += element;
+                    count++;
+                    if(temperature.length !== 0) {
+                        temperature.pop();
+                        created_at.pop();
+                    }
+                    temperature.push(temp_temperature/count);
+                    created_at.push('Minggu ' + now + ' (' + year + ')');
                 });
 
-                alpha.air_humidity.forEach(element => {
-                    humidity.push(element)
+                week = 0;
+                count = 0;
+                alpha.air_humidity.forEach((element, index) => {
+                    let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+
+                    if(now !== week) {
+                        week = now;
+                        count = 0;
+                        temp_humidity = 0;
+                    } 
+                    temp_humidity += element;
+                    count++;
+                    if(humidity.length !== 0) {
+                        humidity.pop();
+                    }
+                    humidity.push(temp_humidity/count);
                 });
 
-                alpha.air_gas_quality.forEach(element => {
-                    gas_quality.push(element)
+                week = 0;
+                count = 0;
+                alpha.air_gas_quality.forEach((element, index) => {
+                    let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+
+                    if(now !== week) {
+                        week = now;
+                        count = 0;
+                        temp_gas_quality = 0;
+                    } 
+                    temp_gas_quality += element;
+                    count++;
+                    if(gas_quality.length !== 0) {
+                        gas_quality.pop();
+                    }
+                    gas_quality.push(temp_gas_quality/count);
                 });
     
-                alpha.created_at.forEach(element => {
-                    created_at.push(element);
-                });
             }
 
             this.setState({
@@ -136,20 +183,67 @@ export default class AirChart extends Component
             let created_at = [];
     
             if(alpha) {
-                alpha.air_temperature.forEach(element => {
-                    temperature.push(element)
+                let week;
+                let count;
+                let temp_temperature = 0;
+                let temp_humidity = 0;
+                let temp_gas_quality = 0;
+
+                week = 0;
+                count = 0;
+                alpha.air_temperature.forEach((element, index) => {
+                    let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let year = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').weekYear();
+
+                    if(now !== week) {
+                        week = now;
+                        count = 0;
+                        temp_temperature = 0;
+                    } 
+                    temp_temperature += element;
+                    count++;
+                    if(temperature.length !== 0) {
+                        temperature.pop();
+                        created_at.pop();
+                    }
+                    temperature.push(temp_temperature/count);
+                    created_at.push('Minggu ' + now + ' (' + year + ')');
                 });
-    
-                alpha.air_humidity.forEach(element => {
-                    humidity.push(element)
+
+                week = 0;
+                count = 0;
+                alpha.air_humidity.forEach((element, index) => {
+                    let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+
+                    if(now !== week) {
+                        week = now;
+                        count = 0;
+                        temp_humidity = 0;
+                    } 
+                    temp_humidity += element;
+                    count++;
+                    if(humidity.length !== 0) {
+                        humidity.pop();
+                    }
+                    humidity.push(temp_humidity/count);
                 });
-    
-                alpha.air_gas_quality.forEach(element => {
-                    gas_quality.push(element)
-                });
-    
-                alpha.created_at.forEach(element => {
-                    created_at.push(element);
+
+                week = 0;
+                count = 0;
+                alpha.air_gas_quality.forEach((element, index) => {
+                    let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+
+                    if(now !== week) {
+                        week = now;
+                        count = 0;
+                        temp_gas_quality = 0;
+                    } 
+                    temp_gas_quality += element;
+                    count++;
+                    if(gas_quality.length !== 0) {
+                        gas_quality.pop();
+                    }
+                    gas_quality.push(temp_gas_quality/count);
                 });
             }
     

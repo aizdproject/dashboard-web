@@ -52,8 +52,7 @@ export default class SoilChart extends Component
                       ticks: {
                         beginAtZero: true,
                         maxTicksLimit: 5,
-                        stepSize: Math.ceil(50 / 10),
-                        max: 50,
+                        stepSize: 10,
                       },
                     }],
                 },
