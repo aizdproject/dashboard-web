@@ -7,12 +7,19 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
+
+const pusher = new Pusher('b01fb79d33e790f8c38d', {
+    cluster: 'ap1',
+    encrypted: true
+});
+const channel = pusher.subscribe('alpha');
 
 export default class PotNodeChart extends Component
 {
@@ -60,6 +67,7 @@ export default class PotNodeChart extends Component
             const alpha_node = res.data[0];
             let temperatures = [];
             let created_at = [];
+            let last_temperature = alpha_node.soil_temperature[alpha_node.soil_temperature.length - 1];
 
             if(alpha_node) {
                 alpha_node.soil_temperature.forEach(element => {
@@ -69,36 +77,55 @@ export default class PotNodeChart extends Component
                 alpha_node.created_at.forEach(element => {
                     created_at.push(element)
                 });
-            }
 
-            this.setState({
-                Data : {
-                    labels: created_at,
-                    datasets: [
-                        {
-                            label: 'Soil Temperature',
-                            backgroundColor: 'rgba(255,255,255,.2)',
-                            borderColor: 'rgba(255,255,255,.55)',
-                            data: temperatures,
-                        },
-                    ]
-                }
-            })
-        });
-
-        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
-        .then(res => {
-            let temperatures = res.data[0].soil_temperature;
-            let last_temperature = temperatures[temperatures.length - 1];
-
-            if(last_temperature) {
                 this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Soil Temperature',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: temperatures,
+                            },
+                        ]
+                    },
                     Value: last_temperature
                 })
             }
         });
 
-        
+        await channel.bind('update-alpha', data => {
+            const alpha_node = data;
+            let temperatures = [];
+            let created_at = [];
+            let last_temperature = alpha_node.soil_temperature[alpha_node.soil_temperature.length - 1];
+
+            if(alpha_node) {
+                alpha_node.soil_temperature.forEach(element => {
+                    temperatures.push(element);
+                });
+
+                alpha_node.created_at.forEach(element => {
+                    created_at.push(element)
+                });
+
+                this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Soil Temperature',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: temperatures,
+                            },
+                        ]
+                    },
+                    Value: last_temperature
+                })
+            }
+        });
     }
     
     render() {

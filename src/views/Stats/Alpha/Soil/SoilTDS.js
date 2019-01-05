@@ -7,12 +7,19 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
+
+const pusher = new Pusher('b01fb79d33e790f8c38d', {
+    cluster: 'ap1',
+    encrypted: true
+});
+const channel = pusher.subscribe('alpha');
 
 export default class PotNodeChart extends Component
 {
@@ -58,47 +65,67 @@ export default class PotNodeChart extends Component
         await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
         .then(res => {
             const alpha_node = res.data[0];
-            let tdses = [];
+            let tdss = [];
             let created_at = [];
+            let last_tds = alpha_node.soil_tds[alpha_node.soil_tds.length - 1];
 
             if(alpha_node) {
                 alpha_node.soil_tds.forEach(element => {
-                    tdses.push(element);
+                    tdss.push(element);
                 });
 
                 alpha_node.created_at.forEach(element => {
                     created_at.push(element)
                 });
-            }
 
-            this.setState({
-                Data : {
-                    labels: created_at,
-                    datasets: [
-                        {
-                            label: 'Soil TDS',
-                            backgroundColor: 'rgba(255,255,255,.2)',
-                            borderColor: 'rgba(255,255,255,.55)',
-                            data: tdses,
-                        },
-                    ]
-                }
-            })
-        });
-
-        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
-        .then(res => {
-            let tdses = res.data[0].soil_tds;
-            let last_tds = tdses[tdses.length - 1];
-
-            if(last_tds) {
                 this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Soil TDS',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: tdss,
+                            },
+                        ]
+                    },
                     Value: last_tds
                 })
             }
         });
 
-        
+        await channel.bind('update-alpha', data => {
+            const alpha_node = data;
+            let tdss = [];
+            let created_at = [];
+            let last_tds = alpha_node.soil_tds[alpha_node.soil_tds.length - 1];
+
+            if(alpha_node) {
+                alpha_node.soil_tds.forEach(element => {
+                    tdss.push(element);
+                });
+
+                alpha_node.created_at.forEach(element => {
+                    created_at.push(element)
+                });
+
+                this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Soil TDS',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: tdss,
+                            },
+                        ]
+                    },
+                    Value: last_tds
+                })
+            }
+        });
     }
     
     render() {

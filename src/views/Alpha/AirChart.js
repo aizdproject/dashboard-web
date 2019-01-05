@@ -3,10 +3,17 @@ import { Line } from 'react-chartjs-2';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandDanger = getStyle('--danger')
+
+const pusher = new Pusher('b01fb79d33e790f8c38d', {
+    cluster: 'ap1',
+    encrypted: true
+});
+const channel = pusher.subscribe('alpha');
 
 export default class AirChart extends Component
 {
@@ -87,6 +94,64 @@ export default class AirChart extends Component
                 });
             }
 
+            this.setState({
+                Data : {
+                    labels: created_at,
+                    datasets: [
+                        {
+                            label: 'Temperature',
+                            backgroundColor: hexToRgba(brandInfo, 10),
+                            borderColor: brandInfo,
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: temperature,
+                        },
+                        {
+                            label: 'Humidity',
+                            backgroundColor: hexToRgba(brandDanger, 10),
+                            borderColor: brandDanger,
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: humidity,
+                        },
+                        {
+                            label: 'Gas Quality',
+                            backgroundColor: hexToRgba(brandSuccess, 10),
+                            borderColor: brandSuccess,
+                            pointHoverBackgroundColor: '#fff',
+                            borderWidth: 2,
+                            data: gas_quality,
+                        }
+                    ]
+                }
+            })
+        })
+
+        await channel.bind('update-alpha', data => {
+            const alpha = data;
+            let temperature = [];
+            let humidity = [];
+            let gas_quality = [];
+            let created_at = [];
+    
+            if(alpha) {
+                alpha.air_temperature.forEach(element => {
+                    temperature.push(element)
+                });
+    
+                alpha.air_humidity.forEach(element => {
+                    humidity.push(element)
+                });
+    
+                alpha.air_gas_quality.forEach(element => {
+                    gas_quality.push(element)
+                });
+    
+                alpha.created_at.forEach(element => {
+                    created_at.push(element)
+                });
+            }
+    
             this.setState({
                 Data : {
                     labels: created_at,

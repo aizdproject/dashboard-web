@@ -7,12 +7,19 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
+
+const pusher = new Pusher('b01fb79d33e790f8c38d', {
+    cluster: 'ap1',
+    encrypted: true
+});
+const channel = pusher.subscribe('alpha');
 
 export default class PotNodeChart extends Component
 {
@@ -60,6 +67,7 @@ export default class PotNodeChart extends Component
             const alpha_node = res.data[0];
             let epsilons = [];
             let created_at = [];
+            let last_epsilon = alpha_node.soil_epsilon[alpha_node.soil_epsilon.length - 1];
 
             if(alpha_node) {
                 alpha_node.soil_epsilon.forEach(element => {
@@ -69,36 +77,55 @@ export default class PotNodeChart extends Component
                 alpha_node.created_at.forEach(element => {
                     created_at.push(element)
                 });
-            }
 
-            this.setState({
-                Data : {
-                    labels: created_at,
-                    datasets: [
-                        {
-                            label: 'Soil Epsilon',
-                            backgroundColor: 'rgba(255,255,255,.2)',
-                            borderColor: 'rgba(255,255,255,.55)',
-                            data: epsilons,
-                        },
-                    ]
-                }
-            })
-        });
-
-        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
-        .then(res => {
-            let epsilons = res.data[0].soil_epsilon;
-            let last_epsilon = epsilons[epsilons.length - 1];
-
-            if(last_epsilon) {
                 this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Soil Epsilon',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: epsilons,
+                            },
+                        ]
+                    },
                     Value: last_epsilon
                 })
             }
         });
 
-        
+        await channel.bind('update-alpha', data => {
+            const alpha_node = data;
+            let epsilons = [];
+            let created_at = [];
+            let last_epsilon = alpha_node.soil_epsilon[alpha_node.soil_epsilon.length - 1];
+
+            if(alpha_node) {
+                alpha_node.soil_epsilon.forEach(element => {
+                    epsilons.push(element);
+                });
+
+                alpha_node.created_at.forEach(element => {
+                    created_at.push(element)
+                });
+
+                this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Soil Epsilon',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: epsilons,
+                            },
+                        ]
+                    },
+                    Value: last_epsilon
+                })
+            }
+        });
     }
     
     render() {

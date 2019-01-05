@@ -7,12 +7,19 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
+
+const pusher = new Pusher('b01fb79d33e790f8c38d', {
+    cluster: 'ap1',
+    encrypted: true
+});
+const channel = pusher.subscribe('alpha');
 
 export default class PotNodeChart extends Component
 {
@@ -60,6 +67,7 @@ export default class PotNodeChart extends Component
             const alpha_node = res.data[0];
             let gas_qualities = [];
             let created_at = [];
+            let last_gas_quality = alpha_node.air_gas_quality[alpha_node.air_gas_quality.length - 1];
 
             if(alpha_node) {
                 alpha_node.air_gas_quality.forEach(element => {
@@ -69,36 +77,55 @@ export default class PotNodeChart extends Component
                 alpha_node.created_at.forEach(element => {
                     created_at.push(element)
                 });
-            }
 
-            this.setState({
-                Data : {
-                    labels: created_at,
-                    datasets: [
-                        {
-                            label: 'Air Gas Quality',
-                            backgroundColor: 'rgba(255,255,255,.2)',
-                            borderColor: 'rgba(255,255,255,.55)',
-                            data: gas_qualities,
-                        },
-                    ]
-                }
-            })
-        });
-
-        await axios.get('https://aizd-webservice.herokuapp.com/api/v1/alpha')
-        .then(res => {
-            let gas_qualities = res.data[0].air_gas_quality;
-            let last_gas_quality = gas_qualities[gas_qualities.length - 1];
-
-            if(last_gas_quality) {
                 this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Air Gas Quality',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: gas_qualities,
+                            },
+                        ]
+                    },
                     Value: last_gas_quality
                 })
             }
         });
 
-        
+        await channel.bind('update-alpha', data => {
+            const alpha_node = data;
+            let gas_qualities = [];
+            let created_at = [];
+            let last_gas_quality = alpha_node.air_gas_quality[alpha_node.air_gas_quality.length - 1];
+
+            if(alpha_node) {
+                alpha_node.air_gas_quality.forEach(element => {
+                    gas_qualities.push(element);
+                });
+
+                alpha_node.created_at.forEach(element => {
+                    created_at.push(element)
+                });
+
+                this.setState({
+                    Data : {
+                        labels: created_at,
+                        datasets: [
+                            {
+                                label: 'Air Gas Quality',
+                                backgroundColor: 'rgba(255,255,255,.2)',
+                                borderColor: 'rgba(255,255,255,.55)',
+                                data: gas_qualities,
+                            },
+                        ]
+                    },
+                    Value: last_gas_quality
+                })
+            }
+        });
     }
     
     render() {
