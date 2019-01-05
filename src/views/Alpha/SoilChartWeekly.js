@@ -96,19 +96,20 @@ export default class SoilChart extends Component
 
                 week = 0;
                 count = 0;
-
                 alpha.soil_temperature.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
                     let year = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').weekYear();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_temperature = 0;
                     } 
                     temp_temperature += element;
                     count++;
-                    if(temperature.length !== 0) {
+                    if(temperature.length !== 0 && pop) {
                         temperature.pop();
                         created_at.pop();
                     }
@@ -120,15 +121,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_vwc.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_vwc = 0;
                     } 
                     temp_vwc += element;
                     count++;
-                    if(vwc.length !== 0) {
+                    if(vwc.length !== 0 && pop) {
                         vwc.pop();
                     }
                     vwc.push(temp_vwc/count);
@@ -138,15 +141,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_ec.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_ec = 0;
                     } 
                     temp_ec += element;
                     count++;
-                    if(ec.length !== 0) {
+                    if(ec.length !== 0 && pop) {
                         ec.pop();
                     }
                     ec.push(temp_ec/count);
@@ -156,15 +161,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_salinity.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_salinity = 0;
                     } 
                     temp_salinity += element;
                     count++;
-                    if(salinity.length !== 0) {
+                    if(salinity.length !== 0 && pop) {
                         salinity.pop();
                     }
                     salinity.push(temp_salinity/count);
@@ -174,15 +181,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_tds.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_tds = 0;
                     } 
                     temp_tds += element;
                     count++;
-                    if(tds.length !== 0) {
+                    if(tds.length !== 0 && pop) {
                         tds.pop();
                     }
                     tds.push(temp_tds/count);
@@ -192,15 +201,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_epsilon.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_epsilon = 0;
                     } 
                     temp_epsilon += element;
                     count++;
-                    if(epsilon.length !== 0) {
+                    if(epsilon.length !== 0 && pop) {
                         epsilon.pop();
                     }
                     epsilon.push(temp_epsilon/count);
@@ -288,19 +299,20 @@ export default class SoilChart extends Component
 
                 week = 0;
                 count = 0;
-
                 alpha.soil_temperature.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
                     let year = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').weekYear();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_temperature = 0;
                     } 
                     temp_temperature += element;
                     count++;
-                    if(temperature.length !== 0) {
+                    if(temperature.length !== 0 && pop) {
                         temperature.pop();
                         created_at.pop();
                     }
@@ -312,15 +324,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_vwc.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_vwc = 0;
                     } 
                     temp_vwc += element;
                     count++;
-                    if(vwc.length !== 0) {
+                    if(vwc.length !== 0 && pop) {
                         vwc.pop();
                     }
                     vwc.push(temp_vwc/count);
@@ -330,15 +344,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_ec.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_ec = 0;
                     } 
                     temp_ec += element;
                     count++;
-                    if(ec.length !== 0) {
+                    if(ec.length !== 0 && pop) {
                         ec.pop();
                     }
                     ec.push(temp_ec/count);
@@ -348,15 +364,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_salinity.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_salinity = 0;
                     } 
                     temp_salinity += element;
                     count++;
-                    if(salinity.length !== 0) {
+                    if(salinity.length !== 0 && pop) {
                         salinity.pop();
                     }
                     salinity.push(temp_salinity/count);
@@ -366,15 +384,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_tds.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_tds = 0;
                     } 
                     temp_tds += element;
                     count++;
-                    if(tds.length !== 0) {
+                    if(tds.length !== 0 && pop) {
                         tds.pop();
                     }
                     tds.push(temp_tds/count);
@@ -384,15 +404,17 @@ export default class SoilChart extends Component
                 count = 0;
                 alpha.soil_epsilon.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_epsilon = 0;
                     } 
                     temp_epsilon += element;
                     count++;
-                    if(epsilon.length !== 0) {
+                    if(epsilon.length !== 0 && pop) {
                         epsilon.pop();
                     }
                     epsilon.push(temp_epsilon/count);

@@ -90,18 +90,20 @@ export default class AirChart extends Component
                 alpha.air_temperature.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
                     let year = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').weekYear();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_temperature = 0;
                     } 
-                    temp_temperature += element;
-                    count++;
-                    if(temperature.length !== 0) {
+                    if(temperature.length !== 0 && pop) {
                         temperature.pop();
                         created_at.pop();
                     }
+                    temp_temperature += element;
+                    count++;
                     temperature.push(temp_temperature/count);
                     created_at.push('Minggu ' + now + ' (' + year + ')');
                 });
@@ -110,15 +112,17 @@ export default class AirChart extends Component
                 count = 0;
                 alpha.air_humidity.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_humidity = 0;
                     } 
                     temp_humidity += element;
                     count++;
-                    if(humidity.length !== 0) {
+                    if(humidity.length !== 0 && pop) {
                         humidity.pop();
                     }
                     humidity.push(temp_humidity/count);
@@ -128,20 +132,21 @@ export default class AirChart extends Component
                 count = 0;
                 alpha.air_gas_quality.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_gas_quality = 0;
                     } 
                     temp_gas_quality += element;
                     count++;
-                    if(gas_quality.length !== 0) {
+                    if(gas_quality.length !== 0 && pop) {
                         gas_quality.pop();
                     }
                     gas_quality.push(temp_gas_quality/count);
                 });
-    
             }
 
             if(this._isMounted) {
@@ -187,8 +192,8 @@ export default class AirChart extends Component
             let created_at = [];
     
             if(alpha) {
-                let week;
-                let count;
+                let week = 0;
+                let count = 0;
                 let temp_temperature = 0;
                 let temp_humidity = 0;
                 let temp_gas_quality = 0;
@@ -198,18 +203,20 @@ export default class AirChart extends Component
                 alpha.air_temperature.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
                     let year = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').weekYear();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_temperature = 0;
                     } 
-                    temp_temperature += element;
-                    count++;
-                    if(temperature.length !== 0) {
+                    if(temperature.length !== 0 && pop) {
                         temperature.pop();
                         created_at.pop();
                     }
+                    temp_temperature += element;
+                    count++;
                     temperature.push(temp_temperature/count);
                     created_at.push('Minggu ' + now + ' (' + year + ')');
                 });
@@ -218,15 +225,17 @@ export default class AirChart extends Component
                 count = 0;
                 alpha.air_humidity.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_humidity = 0;
                     } 
                     temp_humidity += element;
                     count++;
-                    if(humidity.length !== 0) {
+                    if(humidity.length !== 0 && pop) {
                         humidity.pop();
                     }
                     humidity.push(temp_humidity/count);
@@ -236,15 +245,17 @@ export default class AirChart extends Component
                 count = 0;
                 alpha.air_gas_quality.forEach((element, index) => {
                     let now = moment(alpha.created_at[index], 'DD/MM/YYYY-H:mm:ss').week();
+                    let pop = true;
 
                     if(now !== week) {
+                        pop = false;
                         week = now;
                         count = 0;
                         temp_gas_quality = 0;
                     } 
                     temp_gas_quality += element;
                     count++;
-                    if(gas_quality.length !== 0) {
+                    if(gas_quality.length !== 0 && pop) {
                         gas_quality.pop();
                     }
                     gas_quality.push(temp_gas_quality/count);
