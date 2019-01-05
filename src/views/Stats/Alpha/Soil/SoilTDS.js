@@ -105,8 +105,8 @@ export default class PotNodeChart extends Component
         return(
             <Card className="text-white bg-primary">
               <CardBody className="pb-0">
-                <div className="text-value">{ this.state.Value } C</div>
-                <div>Soil TDS</div>
+                <div className="text-value">{ this.state.Value } mg/L</div>
+                <div>Soil Total Dissolved Solid</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
                 <Line data={this.state.Data} options={this.state.mainChartOpts} height={70} />

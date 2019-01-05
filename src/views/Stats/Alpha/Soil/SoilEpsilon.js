@@ -105,7 +105,7 @@ export default class PotNodeChart extends Component
         return(
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <div className="text-value">{ this.state.Value } C</div>
+                <div className="text-value">{ this.state.Value }</div>
                 <div>Soil Epsilon</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
