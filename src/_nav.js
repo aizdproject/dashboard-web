@@ -45,25 +45,25 @@ export default {
     //     attributes: {},
     //   },
     // },
-    {
-      name: 'Forms',
-      icon: 'icon-puzzle',
-      children: [
-        {
-          name: 'Node Sensor',
-          url: '/forms/node',
-          icon: 'icon-puzzle',
-        },
+    // {
+    //   name: 'Forms',
+    //   icon: 'icon-puzzle',
+    //   children: [
+    //     {
+    //       name: 'Node Sensor',
+    //       url: '/forms/node',
+    //       icon: 'icon-puzzle',
+    //     },
     //     {
     //       name: 'Breadcrumbs',
     //       url: '/base/breadcrumbs',
     //       icon: 'icon-puzzle',
     //     },
-        {
-          name: 'Cards',
-          url: '/base/cards',
-          icon: 'icon-puzzle',
-        },
+        // {
+        //   name: 'Cards',
+        //   url: '/base/cards',
+        //   icon: 'icon-puzzle',
+        // },
     //     {
     //       name: 'Carousels',
     //       url: '/base/carousels',
@@ -129,8 +129,8 @@ export default {
     //       url: '/base/tooltips',
     //       icon: 'icon-puzzle',
     //     },
-      ],
-    },
+    //   ],
+    // },
     // {
     //   name: 'Buttons',
     //   url: '/buttons',
@@ -163,41 +163,41 @@ export default {
     //   url: '/charts',
     //   icon: 'icon-pie-chart',
     // },
-    {
-      name: 'Icons',
-      url: '/icons',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'CoreUI Icons',
-          url: '/icons/coreui-icons',
-          icon: 'icon-star',
-          badge: {
-            variant: 'info',
-            text: 'NEW',
-          },
-        },
-        {
-          name: 'Flags',
-          url: '/icons/flags',
-          icon: 'icon-star',
-        },
-        {
-          name: 'Font Awesome',
-          url: '/icons/font-awesome',
-          icon: 'icon-star',
-          badge: {
-            variant: 'secondary',
-            text: '4.7',
-          },
-        },
-        {
-          name: 'Simple Line Icons',
-          url: '/icons/simple-line-icons',
-          icon: 'icon-star',
-        },
-      ],
-    },
+    // {
+    //   name: 'Icons',
+    //   url: '/icons',
+    //   icon: 'icon-star',
+    //   children: [
+    //     {
+    //       name: 'CoreUI Icons',
+    //       url: '/icons/coreui-icons',
+    //       icon: 'icon-star',
+    //       badge: {
+    //         variant: 'info',
+    //         text: 'NEW',
+    //       },
+    //     },
+    //     {
+    //       name: 'Flags',
+    //       url: '/icons/flags',
+    //       icon: 'icon-star',
+    //     },
+    //     {
+    //       name: 'Font Awesome',
+    //       url: '/icons/font-awesome',
+    //       icon: 'icon-star',
+    //       badge: {
+    //         variant: 'secondary',
+    //         text: '4.7',
+    //       },
+    //     },
+    //     {
+    //       name: 'Simple Line Icons',
+    //       url: '/icons/simple-line-icons',
+    //       icon: 'icon-star',
+    //     },
+    //   ],
+    // },
     // {
     //   name: 'Notifications',
     //   url: '/notifications',
@@ -220,22 +220,22 @@ export default {
     //     },
     //   ],
     // },
-    {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'icon-calculator',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      divider: true,
-    },
-    {
-      title: true,
-      name: 'Extras',
-    },
+    // {
+    //   name: 'Widgets',
+    //   url: '/widgets',
+    //   icon: 'icon-calculator',
+    //   badge: {
+    //     variant: 'info',
+    //     text: 'NEW',
+    //   },
+    // },
+    // {
+    //   divider: true,
+    // },
+    // {
+    //   title: true,
+    //   name: 'Extras',
+    // },
     // {
     //   name: 'Pages',
     //   url: '/pages',
