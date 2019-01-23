@@ -30,6 +30,7 @@ export default class WeatherStatus extends Component {
         mainStatus: data.data.weather[0].main,
         clouds: Math.round(data.data.clouds.all * 100) / 100 
       });
+      console.log(this.state.mainStatus)
     } catch (err) {
       throw err;
     }
@@ -44,6 +45,9 @@ export default class WeatherStatus extends Component {
         break;
       case "Clouds":
         status = "fa fa-cloud";
+        break;
+      case "Thunderstorm": 
+        status = "fa fa-wind";
         break;
       default:
         status = "fa fa-sun-o";
