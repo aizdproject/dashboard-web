@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import Widget02 from "../Widgets/Widget02";
 import axios from "axios";
-import { host, query, appId } from "../../API/Weather";
+import { host, query, appId } from "../../api/Weather";
+import Clock from "react-live-clock";
 
 export default class WeatherStatus extends Component {
   constructor(props) {
@@ -22,12 +23,12 @@ export default class WeatherStatus extends Component {
       if (!data) {
         throw new Error("Terdapat kesalahan.");
       }
-      this.setState({
-        temp: data.data.main.temp - 273.15,
-        pressure: data.data.main.pressure,
+      await this.setState({
+        temp: Math.round((data.data.main.temp - 273.15) * 100) / 100,
+        pressure: Math.round(data.data.main.pressure * 100) / 100,
         status: data.data.weather[0].description,
         mainStatus: data.data.weather[0].main,
-        clouds: data.data.clouds.all
+        clouds: Math.round(data.data.clouds.all * 100) / 100 
       });
     } catch (err) {
       throw err;
@@ -56,9 +57,15 @@ export default class WeatherStatus extends Component {
       <Row>
         <Col xs="12" sm="6" lg="3">
           <Widget02
-            header={this.state.status.toString()}
-            mainText="Status"
-            icon={this.weatherStatus(this.state.mainStatus)}
+            header={
+              <Clock
+                format={"HH:mm:ss"}
+                ticking={true}
+                timezone={"Asia/Jakarta"}
+              />
+            }
+            mainText={this.state.status.toString()}
+            icon={this.weatherStatus(this.state.mainStatus.toString())}
             color="primary"
             variant="2"
             footer
@@ -67,7 +74,9 @@ export default class WeatherStatus extends Component {
         </Col>
         <Col xs="12" sm="6" lg="3">
           <Widget02
-            header={this.state.temp.toString() + " " + String.fromCharCode(176) + "C"}
+            header={
+              this.state.temp.toString() + " " + String.fromCharCode(176) + "C"
+            }
             mainText="Temperature"
             icon="fa fa-thermometer-half"
             color="warning"

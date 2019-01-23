@@ -137,7 +137,7 @@ export default class PotNodeChart extends Component
         return(
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <div className="text-value"><CountUp end={this.state.Value} duration={9} decimals={2} /> C</div>
+                <div className="text-value"><CountUp end={this.state.Value} duration={9} decimals={2} /> &deg;C</div>
                 <div>Soil Temperature</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
