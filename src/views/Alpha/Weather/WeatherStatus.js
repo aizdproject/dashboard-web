@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import Widget02 from "../Widgets/Widget02";
+import Widget02 from "../../Widgets/Widget02";
 import axios from "axios";
-import { host, query, appId } from "../../api/Weather";
+import { host, query, appId } from "../../../api/Weather";
 import Clock from "react-live-clock";
 
 export default class WeatherStatus extends Component {
@@ -47,7 +47,7 @@ export default class WeatherStatus extends Component {
         status = "fa fa-cloud";
         break;
       case "Thunderstorm": 
-        status = "fa fa-wind";
+        status = "fa fa-flash";
         break;
       default:
         status = "fa fa-sun-o";

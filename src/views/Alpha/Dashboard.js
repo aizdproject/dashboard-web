@@ -29,9 +29,9 @@ import SoilTemperatureStats from "../Stats/Alpha/Soil/SoilTemperature";
 import AirTemperatureStats from "../Stats/Alpha/Air/AirTemperature";
 import AirGasQualityStats from "../Stats/Alpha/Air/AirGasQuality";
 import AirHumidityStats from "../Stats/Alpha/Air/AirHumidity";
-import Soil from "../Alpha/Soil";
-import Air from "../Alpha/Air";
-import WeatherStatus from "./WeatherStatus";
+import Soil from "../Alpha/Soil/Soil";
+import Air from "../Alpha/Air/Air";
+import WeatherStatus from "./Weather/WeatherStatus";
 
 class Dashboard extends Component {
   constructor(props) {

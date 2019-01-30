@@ -114,11 +114,11 @@ export default {
     //       url: '/base/switches',
     //       icon: 'icon-puzzle',
     //     },
-    //     {
-    //       name: 'Tables',
-    //       url: '/base/tables',
-    //       icon: 'icon-puzzle',
-    //     },
+        {
+          name: 'Tables',
+          url: '/base/tables',
+          icon: 'icon-puzzle',
+        },
     //     {
     //       name: 'Tabs',
     //       url: '/base/tabs',
