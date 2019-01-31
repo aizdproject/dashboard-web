@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   // Badge,
   // Button,
@@ -16,22 +16,22 @@ import {
   // DropdownMenu,
   // DropdownToggle,
   // Progress,
-  Row,
+  Row
   //Table,
-} from 'reactstrap';
+} from "reactstrap";
 
-import SoilTemperatureStats from '../Stats/PotNode/SoilTemperatureStats';
-import SoilMoistureStats from '../Stats/PotNode/SoilMoistureStats';
-import EnvironmentHumidityStats from '../Stats/GreenHouseNode/EnvironmentHumidityStats';
-import EnvironmentTemperatureStats from '../Stats/GreenHouseNode/EnvironmentTemperatureStats';
-import AirQualityStats from '../Stats/GreenHouseNode/AirQualityStats';
-import LightIntensityStats from '../Stats/GreenHouseNode/LightIntensityStats';
-import WaterTurbidityStats from '../Stats/PompNode/WaterTurbidityStats';
-import WaterPhStats from '../Stats/PompNode/WaterPhStats';
-import WaterFlowStats from '../Stats/PompNode/WaterFlowStats';
-import PotNodeChart from '../Charts/PotNodeChart';
-import PompNodeChart from '../Charts/PompNodeChart';
-import GreenHouseNodeChart from '../Charts/GreenHouseNodeChart';
+import SoilTemperatureStats from "../Stats/PotNode/SoilTemperatureStats";
+import SoilMoistureStats from "../Stats/PotNode/SoilMoistureStats";
+import EnvironmentHumidityStats from "../Stats/GreenHouseNode/EnvironmentHumidityStats";
+import EnvironmentTemperatureStats from "../Stats/GreenHouseNode/EnvironmentTemperatureStats";
+import AirQualityStats from "../Stats/GreenHouseNode/AirQualityStats";
+import LightIntensityStats from "../Stats/GreenHouseNode/LightIntensityStats";
+import WaterTurbidityStats from "../Stats/PompNode/WaterTurbidityStats";
+import WaterPhStats from "../Stats/PompNode/WaterPhStats";
+import WaterFlowStats from "../Stats/PompNode/WaterFlowStats";
+import PotNodeChart from "../Charts/PotNodeChart";
+import PompNodeChart from "../Charts/PompNodeChart";
+import GreenHouseNodeChart from "../Charts/GreenHouseNodeChart";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -42,27 +42,43 @@ class Dashboard extends Component {
 
     this.state = {
       dropdownOpen: false,
-      radioSelected: 2,
+      radioSelected: 2
     };
   }
 
   toggle() {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
+      dropdownOpen: !this.state.dropdownOpen
     });
   }
 
   onRadioBtnClick(radioSelected) {
     this.setState({
-      radioSelected: radioSelected,
+      radioSelected: radioSelected
     });
   }
 
   render() {
-
     return (
       <div className="animated fadeIn">
-        <h1>UNDER CONSTRUCTION ):</h1>
+        <img
+          src={require("../../assets/img/brand/sygnet.svg")}
+          alt="AizD Project"
+          style={{
+            display: "block",
+            margin: "auto"
+          }}
+        />
+        <h1
+          style={{
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+            textAlign: "center"
+          }}
+        >
+          UNDER CONSTRUCTION ):
+        </h1>
         {/* <Row>
           <Col xs="12" sm="12" lg="12">
             <div className="text-value">Pots Node Statistics</div>
